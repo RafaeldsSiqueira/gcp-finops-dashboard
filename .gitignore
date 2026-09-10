@@ -70,3 +70,7 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+#======================================
+# Descrição de etapas .md
+#======================================
+projeto-gcp-finops-dashboard.md
