@@ -1,0 +1,72 @@
+# =====================================
+# Terraform & OpenTofu
+# =====================================
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform/
+.terraform.lock.hcl
+
+# =====================================
+# Google Cloud Platform & Credenciais
+# =====================================
+*.json
+!package*.json
+*.key
+*.pem
+credentials/
+.gcp/
+gcp-key*.json
+service-account*.json
+
+# =====================================
+# Python & Ambientes Virtuais
+# =====================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# =====================================
+# Variáveis de Ambiente & Segredos
+# =====================================
+.env
+.env.*
+!.env.example
+
+# =====================================
+# IDEs & Sistema Operacional
+# =====================================
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
