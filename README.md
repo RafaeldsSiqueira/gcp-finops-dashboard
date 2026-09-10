@@ -55,7 +55,7 @@ flowchart LR
         
         V1 & V2 & V3 -->|Conexão Nativa| Looker[Looker Studio Dashboard]
         
-        Scheduler[Cloud Scheduler<br/>Disparo Diário] -->|Pub/Sub ou OIDC| Function[Cloud Function Python<br/>Check Budget & Anomaly Alert]
+        Scheduler[Cloud Scheduler<br/>Diário às 08:00 BRT] -->|Autenticação OIDC| Function[Cloud Function Python<br/>Check Budget & Anomaly Alert]
         Function -->|Consulta SQL| V3
     end
 
@@ -164,6 +164,29 @@ bq load \
 1. Acesse o [Looker Studio](https://lookerstudio.google.com/).
 2. Adicione os dados conectando nas views do BigQuery (`v_daily_cost_by_service` e `v_cost_anomalies_detection`).
 3. Monte os componentes (Scorecards, Gráfico de Donut, Gráfico de Linha e Tabela de Anomalias).
+
+---
+
+## 💰 Custo da Solução & Manutenção (GCP Free Tier Friendly)
+
+Uma solução de FinOps eficiente precisa, por definição, ter **custo de manutenção irrelevante** frente à economia gerada. Toda a arquitetura foi desenhada aproveitando os limites perpétuos do **GCP Free Tier**:
+
+| Serviço | Consumo Estimado da Solução | Franquia Gratuita GCP (Free Tier) | Custo Mensal Estimado |
+| :--- | :--- | :--- | :--- |
+| **BigQuery (Armazenamento)** | ~10 MB a 100 MB de dados de billing | 10 GB grátis / mês | **$0.00** |
+| **BigQuery (Consultas SQL)** | ~20 MB por varredura diária (< 1 GB/mês) | 1 TB grátis / mês | **$0.00** |
+| **Cloud Functions (Gen 2)** | 1 execução diária (~30 execuções/mês) | 2 milhões de invocações / mês | **$0.00** |
+| **Cloud Storage** | Artefato `.zip` da função (< 5 MB) | 5 GB grátis / mês | **$0.00** |
+| **Cloud Scheduler** | 1 job agendado diário | 3 jobs grátis / conta de faturamento | **$0.00** |
+| **Looker Studio** | Consultas diretas via conector nativo | Gratuito | **$0.00** |
+| **Total Estimado** | | | **$0.00 / mês (100% Free Tier)** |
+
+> [!TIP]
+> **Janela de Execução e Rotina Diária:**
+> O job do **Cloud Scheduler** está configurado no fuso de São Paulo (`America/Sao_Paulo`) para disparar pontualmente às **08:00 BRT** (`0 8 * * *`):
+> 1. Às 08:00, o Scheduler invoca a Cloud Function via token OIDC seguro.
+> 2. A Cloud Function consulta a view de anomalias (`v_cost_anomalies_detection`) processando apenas as novidades do faturamento exportado na madrugada pelo GCP.
+> 3. Caso haja desvio ou aumento brusco de custo, a equipe recebe a notificação no Discord/Slack logo no início do expediente, permitindo atuação corretiva imediata.
 
 ---
 
