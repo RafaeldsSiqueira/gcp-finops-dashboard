@@ -7,6 +7,8 @@ resource "google_service_account" "finops_alert_sa" {
   account_id   = "sa-finops-budget-alert"
   display_name = "FinOps Budget Alert Service Account"
   description  = "Identidade de serviço restrita para leitura do BigQuery e disparo de alertas FinOps"
+
+  depends_on = [google_project_service.enabled_services]
 }
 
 # 2. Papel de Leitura de Dados no BigQuery (roles/bigquery.dataViewer)
