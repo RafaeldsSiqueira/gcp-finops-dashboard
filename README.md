@@ -75,6 +75,11 @@ Uma ocorrência é classificada como anomalia quando atende **simultaneamente** 
 1. **Variação Relativa:** O custo do dia ultrapassou em **100% ou mais** a média dos 7 dias anteriores.
 2. **Impacto Financeiro Mínimo:** O desvio absoluto foi superior a **$20,00** (evitando falsos positivos em serviços de baixo consumo em centavos).
 
+### Notificação Proativa no Discord (Webhook):
+Quando uma anomalia é detectada na varredura matinal, a Cloud Function formata e envia uma notificação instantânea detalhando o serviço, o valor e a variação:
+
+![Alerta de Anomalia no Discord](docs/discord_alert.png)
+
 ---
 
 ## 🛠️ Stack Tecnológica & Justificativas
