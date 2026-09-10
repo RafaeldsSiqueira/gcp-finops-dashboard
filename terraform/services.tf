@@ -9,12 +9,15 @@ locals {
     "iam.googleapis.com",
     "cloudfunctions.googleapis.com",
     "cloudscheduler.googleapis.com",
-    "cloudbuild.googleapis.com"
+    "cloudbuild.googleapis.com",
+    "run.googleapis.com",
+    "artifactregistry.googleapis.com",
+    "storage.googleapis.com"
   ]
 }
 
 resource "google_project_service" "enabled_services" {
-  for_each = toset(locals.services)
+  for_each = toset(local.services)
 
   project = var.project_id
   service = each.key

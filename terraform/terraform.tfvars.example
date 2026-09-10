@@ -1,5 +1,5 @@
-# Exemplo de configuração de variáveis do Terraform
-project_id       = "seu-projeto-gcp-id"
-region           = "us-central1"
-dataset_id       = "billing_finops"
-dataset_location = "US"
+project_id          = "seu-projeto-gcp-id"
+region              = "us-central1"
+dataset_id          = "billing_finops"
+dataset_location    = "US"
+discord_webhook_url = "https://discord.com/api/webhooks/SEU_ID/SEU_TOKEN"
